@@ -25,9 +25,19 @@ $(function(){
     $('.js-favor-btn').click(function(event) {
         var dataId = $(this).attr('data-id');
         if($(this).hasClass('on')){
-            $('.favor_Btn').removeClass('on').html('+ 关注');//取消关注
+            $.post('http://api.app.wedoctors.com.cn/1.5/index.interface.php?a=friends&m=delfollow', { touserid: dataId},function(e){
+                if(e.code=='10000')
+                {
+                    $('.favor_Btn').removeClass('on').html('+ 关注');//取消关注
+                }
+            },'json');
         }else{
-            $('.favor_Btn').addClass('on').html('已关注');
+            $.post('http://api.app.wedoctors.com.cn/1.5/index.interface.php?a=friends&m=addfollow', { touserid: dataId},function(e){
+                if(e.code=='10000')
+                {
+                    $('.favor_Btn').addClass('on').html('已关注');
+                }
+            },'json');
         }
     });
 })
