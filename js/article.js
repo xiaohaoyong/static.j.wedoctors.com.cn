@@ -11,12 +11,10 @@ $(function(){
         var h = $('.Infor_Th').height();
         if(scrollTop > h){
             //触发
-            alert('showMediaView');
             setupWebViewJavascriptBridge('showMediaView');
             console.log(1)
         }else{
             //消失
-            alert('dismissMediaView');
 
             setupWebViewJavascriptBridge('dismissMediaView');
             console.log(0)
