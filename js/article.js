@@ -7,6 +7,16 @@ $(function(){
         }else{
             $('#DownApp').addClass('none');
         }
+
+        var h = $('.Infor_Th').height();
+        if(scrollTop > h){
+            //触发
+            console.log(1)
+        }else{
+            //消失
+            console.log(0)
+        }
+
     });
 
     //点击喜欢 取消喜欢
