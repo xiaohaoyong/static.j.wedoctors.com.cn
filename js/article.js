@@ -87,8 +87,11 @@ function setupWebViewJavascriptBridge(callback) {
     setTimeout(function() { document.documentElement.removeChild(WVJBIframe) }, 0)
 }
 setupWebViewJavascriptBridge(function(bridge) {
+    alert(1);
     $(window).scroll(function(event) {
+        alert(2);
         var h = $('.Infor_Th').height();
+        alert(3);
         if(scrollTop > h){
             alert('showMediaView');
             //触发
