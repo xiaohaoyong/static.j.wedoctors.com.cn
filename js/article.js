@@ -96,7 +96,7 @@ setupWebViewJavascriptBridge(function(bridge) {
 
             })
         }else{
-            bridge.callHandler('dismissMediaView', {'d':1}, function(response) {
+            bridge.callHandler('dismissMediaView', {'d':0}, function(response) {
 
             })
         }
