@@ -88,15 +88,26 @@ function setupWebViewJavascriptBridge(callback) {
 }
 setupWebViewJavascriptBridge(function(bridge) {
     $(window).scroll(function(event) {
+        var ha= 62;
         var h = $('.Infor_Th').height();
         var scrollTop = $(window).scrollTop();
         if(scrollTop > h){
             //触发
-            bridge.callHandler('showMediaView', {'d':1}, function(response) {
+            var a=(parseInt(scrollTop)-parseInt(h))/parseInt(ha);
+            if(a>1){
+                a=1;
+            }
+            bridge.callHandler('showMediaView', {'d':a}, function(response) {
 
             })
         }else{
-            bridge.callHandler('dismissMediaView', {'d':0}, function(response) {
+            var b=parseInt(scrollTop)-parseInt(h);
+            if(b>0) {
+                var a = b / parseInt(ha);
+            }else{
+                var a=0;
+            }
+            bridge.callHandler('dismissMediaView', {'d':a}, function(response) {
 
             })
         }
