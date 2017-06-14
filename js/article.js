@@ -87,21 +87,16 @@ function setupWebViewJavascriptBridge(callback) {
     setTimeout(function() { document.documentElement.removeChild(WVJBIframe) }, 0)
 }
 setupWebViewJavascriptBridge(function(bridge) {
-    alert(1);
     $(window).scroll(function(event) {
-        alert(2);
         var h = $('.Infor_Th').height();
-        alert(3);
         var scrollTop = $(window).scrollTop();
         if(scrollTop > h){
-            alert('showMediaView');
             //触发
-            bridge.callHandler('showMediaView', {}, function(response) {
+            bridge.callHandler('showMediaView', {'d':1}, function(response) {
 
             })
         }else{
-            alert('dismissMediaView');
-            bridge.callHandler('dismissMediaView', {}, function(response) {
+            bridge.callHandler('dismissMediaView', {'d':1}, function(response) {
 
             })
         }
