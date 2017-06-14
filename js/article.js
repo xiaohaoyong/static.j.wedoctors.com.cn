@@ -90,11 +90,13 @@ setupWebViewJavascriptBridge(function(bridge) {
     $(window).scroll(function(event) {
         var h = $('.Infor_Th').height();
         if(scrollTop > h){
+            alert('showMediaView');
             //触发
             bridge.callHandler('showMediaView', {}, function(response) {
 
             })
         }else{
+            alert('dismissMediaView');
             bridge.callHandler('dismissMediaView', {}, function(response) {
 
             })
