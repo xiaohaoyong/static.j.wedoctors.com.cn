@@ -7,19 +7,6 @@ $(function(){
         }else{
             $('#DownApp').addClass('none');
         }
-
-        var h = $('.Infor_Th').height();
-        if(scrollTop > h){
-            //触发
-            setupWebViewJavascriptBridge('showMediaView');
-            console.log(1)
-        }else{
-            //消失
-
-            setupWebViewJavascriptBridge('dismissMediaView');
-            console.log(0)
-        }
-
     });
 
     //点击喜欢 取消喜欢
@@ -99,3 +86,18 @@ function setupWebViewJavascriptBridge(callback) {
     document.documentElement.appendChild(WVJBIframe);
     setTimeout(function() { document.documentElement.removeChild(WVJBIframe) }, 0)
 }
+setupWebViewJavascriptBridge(function(bridge) {
+    $(window).scroll(function(event) {
+        var h = $('.Infor_Th').height();
+        if(scrollTop > h){
+            //触发
+            bridge.callHandler('showMediaView', {}, function(response) {
+
+            })
+        }else{
+            bridge.callHandler('dismissMediaView', {}, function(response) {
+
+            })
+        }
+    });
+})
