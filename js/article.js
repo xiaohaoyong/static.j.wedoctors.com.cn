@@ -92,6 +92,7 @@ setupWebViewJavascriptBridge(function(bridge) {
         alert(2);
         var h = $('.Infor_Th').height();
         alert(3);
+        var scrollTop = $(window).scrollTop();
         if(scrollTop > h){
             alert('showMediaView');
             //触发
