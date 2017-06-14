@@ -97,7 +97,7 @@ setupWebViewJavascriptBridge(function(bridge) {
             if(a>1){
                 a=1;
             }
-            bridge.callHandler('showMediaView', {'d':a}, function(response) {
+            bridge.callHandler('showMediaView', {'d':a.toFixed(2)}, function(response) {
 
             })
         }else{
@@ -107,7 +107,7 @@ setupWebViewJavascriptBridge(function(bridge) {
             }else{
                 var a=0;
             }
-            bridge.callHandler('dismissMediaView', {'d':a}, function(response) {
+            bridge.callHandler('dismissMediaView', {'d':a.toFixed(2)}, function(response) {
 
             })
         }
