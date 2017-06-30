@@ -104,7 +104,7 @@ setupWebViewJavascriptBridge(function(bridge) {
 
                 })
             }else{
-                var result = window.android.showMediaView({'d': a.toFixed(2)});
+                var result = android.showMediaView({'d': a.toFixed(2)});
             }
         }else{
             var b=parseInt(scrollTop)-parseInt(h);
@@ -118,7 +118,7 @@ setupWebViewJavascriptBridge(function(bridge) {
 
                 });
             }else{
-                var result = window.android.dismissMediaView({'d': a.toFixed(2)});
+                var result = android.dismissMediaView({'d': a.toFixed(2)});
             }
         }
     });
