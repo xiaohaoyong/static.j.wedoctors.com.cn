@@ -87,6 +87,7 @@ function setupWebViewJavascriptBridge(callback) {
     setTimeout(function() { document.documentElement.removeChild(WVJBIframe) }, 0)
 }
 setupWebViewJavascriptBridge(function(bridge) {
+    var u = navigator.userAgent;
     var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
     $(window).scroll(function(event) {
         var ha= 62;
