@@ -87,6 +87,7 @@ function setupWebViewJavascriptBridge(callback) {
     setTimeout(function() { document.documentElement.removeChild(WVJBIframe) }, 0)
 }
 setupWebViewJavascriptBridge(function(bridge) {
+    var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
     $(window).scroll(function(event) {
         var ha= 62;
         var h = $('.Infor_Th').height();
@@ -97,9 +98,13 @@ setupWebViewJavascriptBridge(function(bridge) {
             if(a>1){
                 a=1;
             }
-            bridge.callHandler('showMediaView', {'d':a.toFixed(2)}, function(response) {
+            if(isiOS) {
+                bridge.callHandler('showMediaView', {'d':a.toFixed(2)}, function(response) {
 
-            })
+                })
+            }else{
+                var result = window.android.showMediaView({'d': a.toFixed(2)});
+            }
         }else{
             var b=parseInt(scrollTop)-parseInt(h);
             if(b>0) {
@@ -107,9 +112,13 @@ setupWebViewJavascriptBridge(function(bridge) {
             }else{
                 var a=0;
             }
-            bridge.callHandler('dismissMediaView', {'d':a.toFixed(2)}, function(response) {
+            if(isiOS) {
+                bridge.callHandler('dismissMediaView', {'d': a.toFixed(2)}, function (response) {
 
-            })
+                });
+            }else{
+                var result = window.android.dismissMediaView({'d': a.toFixed(2)});
+            }
         }
     });
 })
