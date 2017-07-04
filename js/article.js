@@ -109,15 +109,16 @@ function setupWebViewJavascriptBridge(callback) {
 setupWebViewJavascriptBridge(function(bridge) {
     var u = navigator.userAgent;
     var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+    if (deviceType() == "isAndroid") {
+        //若果是安卓必须要注册bridge.init
+        bridge.init(function (message, responseCallback) {
+        });
+    }
     $(window).scroll(function(event) {
         var ha= 62;
         var h = $('.Infor_Th').height();
         var scrollTop = $(window).scrollTop();
-        if (deviceType() == "isAndroid") {
-            //若果是安卓必须要注册bridge.init
-            bridge.init(function (message, responseCallback) {
-            });
-        }
+
         if(scrollTop > h){
             //触发
             var a=(parseInt(scrollTop)-parseInt(h))/parseInt(ha);
