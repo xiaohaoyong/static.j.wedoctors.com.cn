@@ -77,35 +77,57 @@ function getCookie(name)
         return null;
 }
 function setupWebViewJavascriptBridge(callback) {
-    if (window.WebViewJavascriptBridge) { return callback(WebViewJavascriptBridge); }
-    if (window.WVJBCallbacks) { return window.WVJBCallbacks.push(callback); }
-    window.WVJBCallbacks = [callback];
-    var WVJBIframe = document.createElement('iframe');
-    WVJBIframe.style.display = 'none';
-    WVJBIframe.src = 'https://__bridge_loaded__';
-    document.documentElement.appendChild(WVJBIframe);
-    setTimeout(function() { document.documentElement.removeChild(WVJBIframe) }, 0)
+    if (deviceType() == "isIos") {
+        if (window.WebViewJavascriptBridge) {
+            return callback(WebViewJavascriptBridge);
+        }
+        if (window.WVJBCallbacks) {
+            return window.WVJBCallbacks.push(callback);
+        }
+        window.WVJBCallbacks = [callback];
+        var WVJBIframe = document.createElement('iframe');
+        WVJBIframe.style.display = 'none';
+        WVJBIframe.src = 'wvjbscheme://__BRIDGE_LOADED__';
+        document.documentElement.appendChild(WVJBIframe);
+        setTimeout(function () {
+            document.documentElement.removeChild(WVJBIframe)
+        }, 0)
+    } else if (deviceType() == "isAndroid") {
+        if (window.WebViewJavascriptBridge) {
+            callback(WebViewJavascriptBridge)
+        } else {
+            document.addEventListener(
+                'WebViewJavascriptBridgeReady'
+                , function () {
+                    callback(WebViewJavascriptBridge)
+                },
+                false
+            );
+        }
+    }
 }
 setupWebViewJavascriptBridge(function(bridge) {
     var u = navigator.userAgent;
     var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+    if (deviceType() == "isAndroid") {
+        //若果是安卓必须要注册bridge.init
+        bridge.init(function (message, responseCallback) {
+        });
+    }
     $(window).scroll(function(event) {
         var ha= 62;
         var h = $('.Infor_Th').height();
         var scrollTop = $(window).scrollTop();
+
         if(scrollTop > h){
             //触发
             var a=(parseInt(scrollTop)-parseInt(h))/parseInt(ha);
             if(a>1){
                 a=1;
             }
-            if(isiOS) {
-                bridge.callHandler('showMediaView', {'d':a.toFixed(2)}, function(response) {
+            bridge.callHandler('showMediaView', {'d':a.toFixed(2)}, function(response) {
 
-                })
-            }else{
-                var result = android.showMediaView({'d': a.toFixed(2)});
-            }
+            })
         }else{
             var b=parseInt(scrollTop)-parseInt(h);
             if(b>0) {
@@ -113,13 +135,21 @@ setupWebViewJavascriptBridge(function(bridge) {
             }else{
                 var a=0;
             }
-            if(isiOS) {
-                bridge.callHandler('dismissMediaView', {'d': a.toFixed(2)}, function (response) {
+            bridge.callHandler('dismissMediaView', {'d': a.toFixed(2)}, function (response) {
 
-                });
-            }else{
-                var result = android.dismissMediaView({'d': a.toFixed(2)});
-            }
+            });
         }
     });
 })
+//设备类型判断
+function deviceType() {
+    var isIDevice = (/iphone|ipod/gi).test(navigator.platform),
+        isIDeviceIpad = (/ipad/gi).test(navigator.platform),
+        isAndroid = (/Android/gi).test(navigator.userAgent);
+    if ((isIDevice || isIDeviceIpad) && !isAndroid) {
+        return "isIos";
+    } else if (isAndroid) {
+        return "isAndroid";
+    }
+
+}
