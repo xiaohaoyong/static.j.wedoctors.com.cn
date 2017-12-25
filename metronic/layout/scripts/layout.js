@@ -556,16 +556,16 @@ var Layout = function () {
         },
 
         initSidebar: function() {
-            // //layout handlers
-            // handleFixedSidebar(); // handles fixed sidebar menu
-            // handleSidebarMenu(); // handles main menu
-            // handleSidebarToggler(); // handles sidebar hide/show
-            //
-            // if (Metronic.isAngularJsApp()) {
-            //     handleSidebarMenuActiveLink('match'); // init sidebar active links
-            // }
-            //
-            // Metronic.addResizeHandler(handleFixedSidebar); // reinitialize fixed sidebar on window resize
+            //layout handlers
+            handleFixedSidebar(); // handles fixed sidebar menu
+            handleSidebarMenu(); // handles main menu
+            handleSidebarToggler(); // handles sidebar hide/show
+
+            if (Metronic.isAngularJsApp()) {
+                handleSidebarMenuActiveLink('match'); // init sidebar active links
+            }
+
+            Metronic.addResizeHandler(handleFixedSidebar); // reinitialize fixed sidebar on window resize
         },
 
         initContent: function() {
