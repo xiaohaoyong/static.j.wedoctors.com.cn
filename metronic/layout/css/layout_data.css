@@ -1244,7 +1244,7 @@ Page sidebar
 @media (min-width: 992px) {
   /* 992px */
   .page-sidebar {
-    width: 235px;
+    width: 150px;
     float: left;
     position: relative;
     margin-right: -100%;
